@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       statusEl.textContent = "⏳ Uploading & summarizing...";
       resultEl.classList.add("hidden");
 
-      const API_BASE = "https://your-backend.onrender.com"; 
+const API_BASE = "https://your-backend.onrender.com"; 
 const res = await fetch(`${API_BASE}/api/summarize`, { method: "POST", body: formData });
 
       const text = await res.text();
