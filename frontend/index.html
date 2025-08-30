@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Document Summary Assistant — Interactive + TTS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0);}}
+    .animate-fade-in { animation: fadeIn .6s ease-out; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-emerald-50 to-rose-50 min-h-screen text-gray-800">
+  <div class="max-w-3xl mx-auto p-6">
+    <header class="mb-6 text-center bg-gradient-to-r from-sky-200 via-emerald-100 to-rose-200 p-6 rounded-2xl shadow-md animate-fade-in">
+      <h1 class="text-3xl font-bold">📄 Document Summary Assistant</h1>
+      <p class="text-sm opacity-70">PDF text + OCR fallback for scanned files — with Drag & Drop, Copy/Download, and Text‑to‑Speech.</p>
+    </header>
+
+    <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-md">
+      <div class="space-y-4">
+        <div class="border-2 border-dashed rounded-xl p-6 text-center">
+          <input id="fileInput" type="file" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff" class="hidden" />
+          <label for="fileInput" class="cursor-pointer inline-block px-4 py-2 rounded-xl border bg-sky-100 hover:bg-sky-200 transition">Choose file</label>
+          <p id="fileName" class="text-sm text-gray-500 mt-2">No file selected (or drag & drop here)</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <label class="text-sm">Summary length:</label>
+          <select id="lengthSelect" class="border rounded-lg px-3 py-2 bg-emerald-50">
+            <option value="short">Short</option>
+            <option value="medium" selected>Medium</option>
+            <option value="long">Long</option>
+          </select>
+        </div>
+        <button id="summarizeBtn" type="button"
+          class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-300 to-sky-300 font-semibold transform transition duration-300 hover:scale-105 hover:shadow-md active:scale-95">
+          Summarize ✨
+        </button>
+        <span id="status" class="ml-3 text-sm text-gray-700"></span>
+      </div>
+    </div>
+
+    <section id="result" class="hidden mt-6 space-y-4 animate-fade-in">
+      <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-sm">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold text-emerald-700">Summary</h2>
+          <div class="flex gap-2">
+            <button id="copySummary" class="text-sm px-2 py-1 bg-emerald-100 hover:bg-emerald-200 rounded">Copy</button>
+            <button id="downloadSummary" class="text-sm px-2 py-1 bg-sky-100 hover:bg-sky-200 rounded">Download</button>
+            <button id="ttsPlay" class="text-sm px-2 py-1 bg-violet-100 hover:bg-violet-200 rounded">▶️ Read</button>
+            <button id="ttsPause" class="text-sm px-2 py-1 bg-violet-100 hover:bg-violet-200 rounded">⏸ Pause</button>
+            <button id="ttsStop" class="text-sm px-2 py-1 bg-violet-100 hover:bg-violet-200 rounded">⏹ Stop</button>
+          </div>
+        </div>
+        <p id="summaryText" class="whitespace-pre-line leading-relaxed"></p>
+      </div>
+
+      <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-sm">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold text-sky-700">Key Points</h2>
+          <button id="copyKeyPoints" class="text-sm px-2 py-1 bg-rose-100 hover:bg-rose-200 rounded">Copy</button>
+        </div>
+        <div id="keyPoints" class="flex flex-wrap gap-2"></div>
+      </div>
+    </section>
+
+    <footer class="text-xs text-gray-500 mt-8 text-center">
+      Running on http://localhost:8001 — For scanned PDFs, install Poppler (pdftoppm) and add to PATH.
+    </footer>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
