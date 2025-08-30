@@ -7,7 +7,7 @@ const path = require("path");
 const pdfParse = require("pdf-parse");
 const { extractTextFromImage, extractTextFromPdfWithOcr } = require("./utils/ocr");
 const { summarizeText, extractKeyPoints } = require("./utils/summarizer");
-const { aiSummarize } = require("./utils/aiSummarizer");
+
 
 const app = express();
 const upload = multer({ dest: path.join(os.tmpdir(), "docsum_uploads") });
