@@ -39,7 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
       statusEl.textContent = "⏳ Uploading & summarizing...";
       resultEl.classList.add("hidden");
 
-const API_BASE = "https://your-backend.onrender.com"; 
+// Auto-switch between local dev and Render deployment
+const API_BASE = window.location.hostname.includes("localhost")
+  ? "http://localhost:8001"
+  : "https://summarease-bwue.onrender.com"; // <-- your real Render backend URL
+
 const res = await fetch(`${API_BASE}/api/summarize`, { method: "POST", body: formData });
 
       const text = await res.text();
